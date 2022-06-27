@@ -9,6 +9,9 @@ let startBlock = document.querySelector("#start");
 let gameBlock = document.querySelector("#game");
 let soundBtn = document.querySelector("#sound img");
 let gamer = document.querySelector("#player");
+let enemy1 = document.querySelector(".enemy.type-1");
+let enemy2 = document.querySelector(".enemy.type-2");
+let bullet = document.querySelector(".bullet");
 
 /* task after lesson 1
 start.style.background = "green";
@@ -53,13 +56,31 @@ startBtn.onclick = function () {
 function startGame() {
   startBlock.style.display = "none";
   gameBlock.style.display = "block";
-
-  enemy1 = document.querySelector(".enemy.type-1");
-  enemy2 = document.querySelector(".enemy.type-2");
   moveEnemy(enemy1);
   moveEnemy(enemy2);
+  moveBullet(bullet);
 }
 
+/*function moveBullet(bullet){
+  bulletTimer =  setInterval(function (){
+    bullet.style.left = bullet.offsetLeft + 10 + "px";
+    if (bullet.offsetLeft>document.querySelector("body").clientWidth){
+      bullet.remove();
+      clearInterval(bulletTimer);
+    }
+console.dir(bulletTimer);
+  }, 5);
+};*/
+
+function moveBullet(bullet) {
+  setInterval(function () {
+    bullet.style.left = bullet.offsetLeft + 10 + "px";
+    if (bullet.offsetLeft > document.querySelector("body").clientWidth) {
+      bullet.style.left = bullet.offsetLeft - 1750 +"px";
+    }
+  }, 15);
+};
+// Перемещение врагов
 function moveEnemy(enemy) {
   console.dir(enemy);
   setInterval(function () {
@@ -86,11 +107,14 @@ soundBtn.onclick = function () {
 };
 // Перемещение игрока по координате вверх/вниз
 document.onkeydown = function (event) {
-  console.dir(event);
   if (event.keyCode == 87) {
-    gamer.style.top = gamer.offsetTop - 10 + "px";
+    if (gamer.offsetTop > 70) {
+      gamer.style.top = gamer.offsetTop - 10 + "px";
+    }
   }
   if (event.keyCode == 83) {
-    gamer.style.top = gamer.offsetTop + 10 + "px";
+    if (gamer.offsetTop < document.querySelector("#app").clientHeight - 200) {
+      gamer.style.top = gamer.offsetTop + 10 + "px";
+    }
   }
 };
