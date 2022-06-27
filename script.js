@@ -48,9 +48,28 @@ audio2Btn.onclick = function () {
 
 //При клике на кнопку старт открывается игровое поле
 startBtn.onclick = function () {
+  startGame();
+};
+function startGame() {
   startBlock.style.display = "none";
   gameBlock.style.display = "block";
-};
+
+  enemy1 = document.querySelector(".enemy.type-1");
+  enemy2 = document.querySelector(".enemy.type-2");
+  moveEnemy(enemy1);
+  moveEnemy(enemy2);
+}
+
+function moveEnemy(enemy) {
+  console.dir(enemy);
+  setInterval(function () {
+    enemy.style.left = enemy.offsetLeft - 10 + "px";
+    if (enemy.offsetLeft < -100) {
+      enemy.style.left =
+        document.querySelector("body").clientWidth + 200 + "px";
+    }
+  }, 10);
+}
 
 // При клике на изображение звука включается или выключается мелодия
 let sound = "off";
