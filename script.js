@@ -2,17 +2,16 @@
 
 let h2 = document.querySelector("#start h2");
 let startBtn = document.querySelector("#start button");
-let life = document.querySelector("#lifes");
+
 let score = document.querySelector("#score");
 let audioplayer = document.querySelector("audio");
 let startBlock = document.querySelector("#start");
 let gameBlock = document.querySelector("#game");
 let soundBtn = document.querySelector("#sound img");
 let gamer = document.querySelector("#player");
-//let enemy1 = document.querySelector(".enemy.type-1");
-//let enemy2 = document.querySelector(".enemy.type-2");
-//let bullet = document.querySelector(".bullet");
 
+let life = document.querySelector("#lifes");
+let countLifes = 3;
 /*
 
 // добавляет + 1 жизнь, как добавить еще одну пока не разобралась
@@ -33,7 +32,8 @@ function startGame() {
   startBlock.style.display = "none";
   gameBlock.style.display = "block";
   createEnemy();
-  setInterval(createEnemy,5000);
+  createLifes();
+  
  // moveBullet(bullet);
 }
 /* Block enemy*/
@@ -45,8 +45,8 @@ function moveEnemy(enemy) {
         enemy.remove();
         createEnemy();
         clearInterval(timerForEnemy);
-     // enemy.style.left = document.querySelector("body").clientWidth + 200 + "px";
-    }
+        die();
+        }
   }, 100);
 }
 //Создание врагов
@@ -55,33 +55,68 @@ function createEnemy(){
  let enemy = document.createElement("div");
      enemy.className = "enemy type-1";
      enemy.style.top = position + "px";
-     position = position + 100;
-     gameBlock.appendChild(enemy);
-     moveEnemy(enemy);
+     
+  gameBlock.appendChild(enemy);
+  moveEnemy(enemy);
 
- let enemy2 = document.createElement("div");
+/* let enemy2 = document.createElement("div");
      enemy2.className = "enemy type-2";
      gameBlock.appendChild(enemy2);
-     moveEnemy(enemy2);};
+moveEnemy(enemy2);*/};
 /* Block bullet*/
 //Создание пули 
+
 function createBullet(){
   let bullet = document.createElement("div");
-  bullet.className = "bullet";
+      bullet.className = "bullet";
+      bullet.style.top = gamer.offsetTop +140+"px";
+  
   gameBlock.appendChild(bullet);
+  moveBullet(bullet);
+};
 //Перемещение пули
- let timerForBullet = setInterval(function () {
+
+function moveBullet(bullet){
+  let timerForBullet = setInterval(function () {
     bullet.style.left = bullet.offsetLeft + 10 + "px";
     if (bullet.offsetLeft > document.querySelector("body").clientWidth) {
-      //bullet.style.left = bullet.offsetLeft - 1750 +"px";
-      bullet.remove();
-      clearInterval(timerForBullet);
-         
-    }
+        bullet.remove();
+        clearInterval(timerForBullet);
+      }
+
+      isBoom(bullet);
   }, 10);
-
+}
+/* block for killing enemies*/
+function isBoom(bullet){
+  let enemy = document.querySelector(".enemy")
+ if(bullet.offsetTop>enemy.offsetTop 
+  && bullet.offsetTop< enemy.offsetTop +enemy.clientHeight
+  && bullet.offsetLeft >enemy.offsetLeft){
+    bullet.remove();
+    enemy.remove();
+   
+    createEnemy();
+  }
 };
+function die(){
+  countLifes = countLifes-1;
+  if(countLifes <= 0){
+    alert("Game over!")
+  }
+  createLifes();
+}
 
+function createLifes(){
+    life.innerHTML="";
+  let count = 0
+  while(count < countLifes  ) {
+        let span = document.createElement("span")
+        life.appendChild(span);
+        count = count + 1;
+  }
+
+}
 
 
 /*Block gamer*/
