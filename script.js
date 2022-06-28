@@ -9,89 +9,102 @@ let startBlock = document.querySelector("#start");
 let gameBlock = document.querySelector("#game");
 let soundBtn = document.querySelector("#sound img");
 let gamer = document.querySelector("#player");
-let enemy1 = document.querySelector(".enemy.type-1");
-let enemy2 = document.querySelector(".enemy.type-2");
-let bullet = document.querySelector(".bullet");
+//let enemy1 = document.querySelector(".enemy.type-1");
+//let enemy2 = document.querySelector(".enemy.type-2");
+//let bullet = document.querySelector(".bullet");
 
-/* task after lesson 1
-start.style.background = "green";
-start.style.height = "100px";
-start.style.widht = "200px";
-score.style.color = "blue";
-console.dir(start);
-console.dir(life);
-console.dir(score);
+/*
 
 // добавляет + 1 жизнь, как добавить еще одну пока не разобралась
 
 let addMoreLifes = document.getElementById("lifes");
 let newLife = document.createElement("span");
 addMoreLifes.insertAdjacentElement("beforeend", newLife);
+*/
 
-//Task after lesson 2
-
-let source = document.querySelector("audio source");*/
-/*console.dir(source);
-let audio1Btn = document.querySelector("#firstMusic");
-let audio2Btn = document.querySelector("#secondMusic");
-
-audio1Btn.onclick = function () {
-  source.src = "audio/1.mp3";
-  player.load();
-  player.play();
-};
-
-audio2Btn.onclick = function () {
-  source.src = "audio/2.mp3";
-  player.load();
-  player.play();
-};*/
-
-//task after 3 lesson
+/* Block start*/
 
 //При клике на кнопку старт открывается игровое поле
 startBtn.onclick = function () {
   startGame();
 };
+
 function startGame() {
   startBlock.style.display = "none";
   gameBlock.style.display = "block";
-  moveEnemy(enemy1);
-  moveEnemy(enemy2);
-  moveBullet(bullet);
+  createEnemy();
+  setInterval(createEnemy,5000);
+ // moveBullet(bullet);
 }
-
-/*function moveBullet(bullet){
-  bulletTimer =  setInterval(function (){
-    bullet.style.left = bullet.offsetLeft + 10 + "px";
-    if (bullet.offsetLeft>document.querySelector("body").clientWidth){
-      bullet.remove();
-      clearInterval(bulletTimer);
+/* Block enemy*/
+//Перемещение врагов
+function moveEnemy(enemy) {
+  let timerForEnemy = setInterval(function () {
+    enemy.style.left = enemy.offsetLeft - 10 + "px";
+        if (enemy.offsetLeft < -100) {
+        enemy.remove();
+        createEnemy();
+        clearInterval(timerForEnemy);
+     // enemy.style.left = document.querySelector("body").clientWidth + 200 + "px";
     }
-console.dir(bulletTimer);
-  }, 5);
-};*/
+  }, 100);
+}
+//Создание врагов
+position = 100;
+function createEnemy(){
+ let enemy = document.createElement("div");
+     enemy.className = "enemy type-1";
+     enemy.style.top = position + "px";
+     position = position + 100;
+     gameBlock.appendChild(enemy);
+     moveEnemy(enemy);
 
-function moveBullet(bullet) {
-  setInterval(function () {
+ let enemy2 = document.createElement("div");
+     enemy2.className = "enemy type-2";
+     gameBlock.appendChild(enemy2);
+     moveEnemy(enemy2);};
+/* Block bullet*/
+//Создание пули 
+function createBullet(){
+  let bullet = document.createElement("div");
+  bullet.className = "bullet";
+  gameBlock.appendChild(bullet);
+//Перемещение пули
+ let timerForBullet = setInterval(function () {
     bullet.style.left = bullet.offsetLeft + 10 + "px";
     if (bullet.offsetLeft > document.querySelector("body").clientWidth) {
-      bullet.style.left = bullet.offsetLeft - 1750 +"px";
-    }
-  }, 15);
-};
-// Перемещение врагов
-function moveEnemy(enemy) {
-  console.dir(enemy);
-  setInterval(function () {
-    enemy.style.left = enemy.offsetLeft - 10 + "px";
-    if (enemy.offsetLeft < -100) {
-      enemy.style.left =
-        document.querySelector("body").clientWidth + 200 + "px";
+      //bullet.style.left = bullet.offsetLeft - 1750 +"px";
+      bullet.remove();
+      clearInterval(timerForBullet);
+         
     }
   }, 10);
-}
 
+};
+
+
+
+/*Block gamer*/
+// События для клавиш на клавиатуре
+document.onkeydown = function (event) {
+  if (event.keyCode == 87) {
+    if (gamer.offsetTop > 70) {
+      gamer.style.top = gamer.offsetTop - 10 + "px";
+    }
+  }
+  if (event.keyCode == 83) {
+    if (gamer.offsetTop < document.querySelector("#app").clientHeight - 200) {
+      gamer.style.top = gamer.offsetTop + 10 + "px";
+    }
+  }
+   if (event.keyCode ==32){
+        createBullet();
+   }
+
+};
+
+
+/*Block options*/
 // При клике на изображение звука включается или выключается мелодия
 let sound = "off";
 soundBtn.onclick = function () {
@@ -105,16 +118,6 @@ soundBtn.onclick = function () {
     audioplayer.play();
   }
 };
-// Перемещение игрока по координате вверх/вниз
-document.onkeydown = function (event) {
-  if (event.keyCode == 87) {
-    if (gamer.offsetTop > 70) {
-      gamer.style.top = gamer.offsetTop - 10 + "px";
-    }
-  }
-  if (event.keyCode == 83) {
-    if (gamer.offsetTop < document.querySelector("#app").clientHeight - 200) {
-      gamer.style.top = gamer.offsetTop + 10 + "px";
-    }
-  }
-};
+
+
+
