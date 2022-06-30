@@ -11,18 +11,18 @@
     background-size: cover;
 }
 
-#video-bg > video {
+#video-bg>video {
     position: absolute;
     top: 0;
     left: 0;
-    min-width: 100%; 
+    min-width: 100%;
     min-height: 100%;
     width: auto;
-    height: auto; 
+    height: auto;
 }
 
 @supports (object-fit: cover) {
-    #video-bg > video {
+    #video-bg>video {
         top: 0;
         left: 0;
         width: 100%;
@@ -30,6 +30,7 @@
         object-fit: cover;
     }
 }
+
 /* ===
  Игра 
 === */
@@ -44,6 +45,7 @@
     overflow: hidden;
     z-index: 9;
 }
+
 /* Жизни */
 #lifes {
     position: absolute;
@@ -60,21 +62,25 @@
     background: url(images/life.png);
     background-size: cover;
 }
+
 /* Кнопки опций игры */
 #options {
     float: right;
     height: 40px;
     margin: 10px;
 }
+
 #options div {
     float: left;
     cursor: pointer;
 }
+
 #options #score {
     color: #fff;
     font-size: 24px;
     margin: 6px 40px;
 }
+
 #options #sound,
 #options #sound img {
     height: 100%;
@@ -88,8 +94,9 @@
     left: 60px;
     -webkit-transition: all 0.2s;
     -moz-transition: all 0.2s;
-    transition: all 0.2s;
+    transition: all 0.3s;
 }
+
 #player.skin_1 {
     width: 168px;
     background: url(images/player_1.png);
@@ -99,6 +106,7 @@
     width: 177px;
     background: url(images/player_2.png);
 }
+
 /* Пуля */
 .bullet {
     width: 30px;
@@ -112,6 +120,7 @@
     box-shadow: 0 0 5px #fff, 0 0 8px #fff, 0 0 12px #fff, 0 0 15px red, 0 0 25px red;
     z-index: 5;
 }
+
 /* Взрыв */
 .boom {
     background: url(images/boom.gif);
@@ -122,6 +131,7 @@
     top: 40%;
     left: 50%;
 }
+
 /* Враги */
 .enemy {
     position: absolute;
@@ -129,6 +139,7 @@
     right: 20px;
     z-index: 999999;
 }
+
 /* Враг тип 1 */
 .enemy.type-1 {
     top: calc(30% - 85px);
@@ -136,6 +147,7 @@
     height: 120px;
     background: url("images/enemy-1.gif") no-repeat;
 }
+
 /* Враг тип 2 */
 .enemy.type-2 {
     width: 174px;
@@ -146,7 +158,8 @@
 /*===
 Стартовое окно
 ===*/
-#start {
+#start,
+#end {
     background: #FFF;
     width: 600px;
     height: 520px;
@@ -157,10 +170,12 @@
     font-family: arial black;
     font-size: 24px;
 }
+
 #start #select-player {
     width: 475px;
     margin: 0 auto;
 }
+
 #start #select-player span {
     border-radius: 10px;
     display: block;
@@ -172,7 +187,9 @@
 #start #select-player span.selected {
     border: 2px solid #326184;
 }
-#start button {
+
+#start button,
+#end button {
     padding: 20px 60px;
     font-size: 24px;
     font-family: arial black;
@@ -185,20 +202,25 @@
     color: #FFF;
     text-transform: uppercase;
 }
-#start button:hover {
+
+#start button:hover,
+#end button:hover {
     background: #8a7868;
 }
+
 /*===
 Вспомогательные классы
 ===*/
 .clearfix {
     zoom: 1;
 }
+
 .clearfix:before,
 .clearfix:after {
     content: "";
     display: table;
 }
+
 .clearfix:after {
     clear: both;
 }
